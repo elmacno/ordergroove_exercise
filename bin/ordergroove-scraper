@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+import optparse
+import ordergroove_scraper
+
+def main():
+  parser = optparse.OptionParser(usage="usage: %prog [flags] [URL]",
+                                 version="%prog 0.1.0")
+  parser.add_option("-t", "--top-tags",
+                    type="int",
+                    dest="top_tags",
+                    default=5,
+                    help="Number of top HTML tags to display")
+  (options,args) = parser.parse_args()
+  options.target_url = "http://ordergroove.com/company"
+  if len(args) > 1:
+    parser.error("Wrong number of arguments")
+  elif len(args) == 1:
+    options.target_url = args[0]
+
+  scraper = ordergroove_scraper.scraper()
+
+  (tag_count, top_tags) = scraper.scrape(url=options.target_url,
+                                       max_tags=options.top_tags)
+  print("The number of HTML elements in '%s' is %d"%(options.target_url, tag_count))
+  print("The top %d tags are:"%(len(top_tags)))
+  for (tag, count) in top_tags:
+    print("\tTag '%s' appeared %d times"%(tag, count))
+
+
+if __name__ == "__main__":
+  main()

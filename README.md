@@ -28,6 +28,6 @@ target_url="http://ordergroove.com/company"
                                        max_tags=5)
 print("The number of tags in '%s' is %d"%(target_url, tag_count))
 print("The top %d tags are:"%(len(top_tags)))
-for tag_info in top_tags:
-  print("\tTag '%s' appeared %d times"%(tag_info.name, tag_info.count))
+for (tag, count) in top_tags:
+   print("\tTag '%s' appeared %d times"%(tag, count))
 ```
